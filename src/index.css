@@ -1,58 +1,42 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
   body {
-    font-family: 'Inter', system-ui, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    @apply bg-stone-50 text-forest-950 antialiased;
   }
-  h1, h2, h3, h4 {
-    font-family: 'Sora', 'Inter', system-ui, sans-serif;
+  h1, h2, h3 {
+    @apply font-display tracking-tight;
   }
-}
-
-@layer utilities {
-  .animate-fade-in {
-    animation: fadeIn 0.3s ease-out;
-  }
-  .animate-slide-up {
-    animation: slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .animate-scale-in {
-    animation: scaleIn 0.2s ease-out;
+  /* Consistent focus ring across every interactive element. */
+  :where(a, button, input, select, textarea, [tabindex]):focus-visible {
+    @apply outline-none ring-2 ring-forest-600 ring-offset-2 ring-offset-white;
   }
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+@layer components {
+  .field-label {
+    @apply block text-sm font-medium text-forest-900 mb-1.5;
+  }
+  .field-input {
+    @apply w-full rounded-lg border border-stone-300 bg-white px-3.5 py-2.5 text-sm
+           text-forest-950 placeholder:text-stone-400 transition-colors
+           hover:border-stone-400 focus:border-forest-600 focus:outline-none
+           focus:ring-2 focus:ring-forest-600/20 disabled:bg-stone-100
+           disabled:text-stone-500;
+  }
+  .field-error {
+    @apply border-red-400 focus:border-red-500 focus:ring-red-500/20;
+  }
 }
 
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes scaleIn {
-  from { opacity: 0; transform: scale(0.96); }
-  to { opacity: 1; transform: scale(1); }
-}
-
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-::-webkit-scrollbar-thumb {
-  background: #d6d3d1;
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #a8a29e;
-}
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #d6d3d1; border-radius: 5px; border: 2px solid transparent; background-clip: content-box; }
+::-webkit-scrollbar-thumb:hover { background: #a8a29e; background-clip: content-box; }

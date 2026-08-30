@@ -6,7 +6,13 @@ import { fileURLToPath, URL } from 'node:url';
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
 
+  // GitHub Pages serves a project site from /<repo>/, so assets and routes need
+  // that prefix. Set VITE_BASE_PATH in CI; it stays '/' for local dev and for
+  // any host that serves from the domain root (Vercel, Netlify, a custom domain).
+  const base = env.VITE_BASE_PATH || '/';
+
   return {
+    base,
     plugins: [react()],
     resolve: {
       alias: {
