@@ -1,0 +1,63 @@
+<svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" width="240" height="240">
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="0.9" y2="1">
+      <stop offset="0" stop-color="#EBC963"/><stop offset="0.45" stop-color="#D9A62A"/><stop offset="1" stop-color="#B8860F"/>
+    </linearGradient>
+    <clipPath id="disc"><circle cx="120" cy="108" r="98.5"/></clipPath>
+  </defs>
+
+  <path d="M113.57 16.19 A92 92 0 0 0 71.25 186.02" stroke="#0B4A2F" stroke-width="13" fill="none"/>
+  <path d="M126.42 16.19 A92 92 0 0 1 168.75 186.02" stroke="url(#gold)" stroke-width="13" fill="none"/>
+
+  <g stroke="url(#gold)" stroke-width="5" fill="none" stroke-linejoin="miter">
+    <path d="M70 118 L70 99 L89 99 L89 76 L112 60 L112 118"/>
+    <path d="M126 118 L126 52 L149 68 L149 95 L170 95 L170 118"/>
+  </g>
+
+  <g clip-path="url(#disc)">
+    <!-- GOLD fingertips, lower-left -->
+    <g fill="url(#gold)" stroke="#fff" stroke-width="5">
+      <rect x="42" y="142" width="28" height="16" rx="8" transform="rotate(30 56 150)"/>
+      <rect x="57" y="155" width="28" height="16" rx="8" transform="rotate(30 71 163)"/>
+      <rect x="73" y="167" width="27" height="16" rx="8" transform="rotate(30 86 175)"/>
+      <rect x="89" y="178" width="26" height="16" rx="8" transform="rotate(30 102 186)"/>
+    </g>
+
+    <!-- GOLD forearm + back of hand, from the right -->
+    <path d="M246 104 C214 84 174 84 148 100 C132 110 118 124 110 138
+             C104 150 108 162 118 164 C130 166 138 154 150 144
+             C172 126 212 132 244 158 Z" fill="url(#gold)"/>
+
+    <!-- GREEN forearm + fist, from the left -->
+    <g>
+      <path d="M-8 104 C34 96 78 110 110 126 C126 134 140 128 152 132
+               C173 139 183 156 174 173 C164 191 137 190 117 181
+               C85 158 38 143 -8 146 Z" fill="#fff" stroke="#fff" stroke-width="10" stroke-linejoin="round"/>
+      <path d="M-8 104 C34 96 78 110 110 126 C126 134 140 128 152 132
+               C173 139 183 156 174 173 C164 191 137 190 117 181
+               C85 158 38 143 -8 146 Z" fill="#0B4A2F"/>
+    </g>
+
+    <!-- GREEN fingers wrapping over the gold hand -->
+    <g fill="none" stroke-linecap="round">
+      <g stroke="#fff" stroke-width="22">
+        <path d="M156 134 Q186 138 199 156"/>
+        <path d="M152 153 Q182 159 193 178"/>
+        <path d="M143 170 Q171 178 179 197"/>
+        <path d="M130 184 Q154 194 160 212"/>
+      </g>
+      <g stroke="#0B4A2F" stroke-width="14">
+        <path d="M156 134 Q186 138 199 156"/>
+        <path d="M152 153 Q182 159 193 178"/>
+        <path d="M143 170 Q171 178 179 197"/>
+        <path d="M130 184 Q154 194 160 212"/>
+      </g>
+    </g>
+
+    <!-- GOLD thumb hooking over the green fist -->
+    <path d="M157 105 C135 117 113 133 103 152"
+          fill="none" stroke="#fff" stroke-width="40" stroke-linecap="round"/>
+    <path d="M157 105 C135 117 113 133 103 152"
+          fill="none" stroke="url(#gold)" stroke-width="30" stroke-linecap="round"/>
+  </g>
+</svg>
