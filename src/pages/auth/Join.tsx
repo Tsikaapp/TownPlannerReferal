@@ -4,7 +4,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import AuthLayout from '@/components/layout/AuthLayout';
 import Alert from '@/components/ui/Alert';
 import Button from '@/components/ui/Button';
-import { SelectField, TextField } from '@/components/ui/Field';
+import { SelectField, TextField, PasswordField } from '@/components/ui/Field';
+import { supabase } from '@/lib/supabaseClient';
 import { useAuth } from '@/auth/useAuth';
 import { PROFESSIONS, PROVINCES } from '@/lib/constants';
 import { readableError } from '@/lib/supabaseClient';
@@ -34,6 +35,7 @@ export default function Join() {
     fullName: '', email: '', password: '', company: '', profession: '',
     phone: '', city: '', province: '',
   });
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [pendingConfirmation, setPendingConfirmation] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -46,6 +48,7 @@ export default function Join() {
     e.preventDefault();
     setError(null);
     if (form.password.length < 8) return setError('Choose a password of at least 8 characters.');
+    if (form.password !== confirmPassword) return setError('Passwords do not match.');
     if (form.fullName.trim().length < 2) return setError('Please give your full name.');
 
     setBusy(true);
@@ -94,6 +97,20 @@ export default function Join() {
       }
     >
       <form onSubmit={onSubmit} className="space-y-6" noValidate>
+        <div className="space-y-3">
+          <Button type="button" className="w-full" onClick={async () => {
+            setError(null);
+            setBusy(true);
+            try {
+              await supabase.auth.signInWithOAuth({ provider: 'google' });
+            } catch (err) {
+              setError(readableError(err, 'Could not start Google sign-in.'));
+              setBusy(false);
+            }
+          }}>
+            Continue with Google
+          </Button>
+        </div>
         {error && <Alert tone="error">{error}</Alert>}
 
         <fieldset>
@@ -141,14 +158,20 @@ export default function Join() {
           <TextField label="Phone" type="tel" autoComplete="tel" value={form.phone} onChange={set('phone')} placeholder="082 000 0000" />
         </div>
 
-        <TextField
+        <PasswordField
           label="Password"
-          type="password"
           required
           autoComplete="new-password"
           value={form.password}
           onChange={set('password')}
           hint="At least 8 characters."
+        />
+
+        <PasswordField
+          label="Confirm password"
+          required
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
         />
 
         {isPro && (

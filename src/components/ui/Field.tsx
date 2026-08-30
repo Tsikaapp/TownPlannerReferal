@@ -1,7 +1,8 @@
+import { Eye, EyeOff } from 'lucide-react';
 import type {
   InputHTMLAttributes, ReactNode, SelectHTMLAttributes, TextareaHTMLAttributes,
 } from 'react';
-import { useId } from 'react';
+import { useId, useState } from 'react';
 
 interface BaseProps {
   label: string;
@@ -88,6 +89,45 @@ export function SelectField({
           <option key={o.value} value={o.value}>{o.label}</option>
         ))}
       </select>
+    </Wrapper>
+  );
+}
+
+/**
+ * Password input with a show/hide toggle. Typing a password you cannot see is
+ * the main source of failed sign-ups, so the toggle is worth the extra control.
+ * The button is aria-hidden from the tab order's point of view only in that it
+ * carries an explicit label; it stays keyboard reachable.
+ */
+export function PasswordField({
+  label, hint, error, required, className = '', ...rest
+}: BaseProps & Omit<InputHTMLAttributes<HTMLInputElement>, 'type'>) {
+  const id = useId();
+  const [visible, setVisible] = useState(false);
+
+  return (
+    <Wrapper label={label} hint={hint} error={error} required={required} htmlFor={id}>
+      <div className="relative">
+        <input
+          id={id}
+          type={visible ? 'text' : 'password'}
+          required={required}
+          aria-invalid={error ? true : undefined}
+          className={`field-input pr-11 ${error ? 'field-error' : ''} ${className}`}
+          {...rest}
+        />
+        <button
+          type="button"
+          onClick={() => setVisible((v) => !v)}
+          aria-label={visible ? 'Hide password' : 'Show password'}
+          aria-pressed={visible}
+          title={visible ? 'Hide password' : 'Show password'}
+          className="absolute right-1 top-1/2 -translate-y-1/2 rounded-md p-2 text-stone-400
+                     transition-colors hover:bg-stone-100 hover:text-forest-700"
+        >
+          {visible ? <EyeOff className="h-4.5 w-4.5" /> : <Eye className="h-4.5 w-4.5" />}
+        </button>
+      </div>
     </Wrapper>
   );
 }

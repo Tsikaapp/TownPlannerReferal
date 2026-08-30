@@ -5,6 +5,7 @@ import Avatar from '@/components/ui/Avatar';
 import Alert from '@/components/ui/Alert';
 import Button from '@/components/ui/Button';
 import { SelectField, TextAreaField, TextField } from '@/components/ui/Field';
+import ProfessionalSelect from '@/components/ui/ProfessionalSelect';
 import { buttonStyles } from '@/components/ui/styles';
 import { useAuth } from '@/auth/useAuth';
 import { fetchDirectory } from '@/db/profiles';
@@ -158,15 +159,12 @@ export default function ReferClient() {
             Who it goes to
           </legend>
           <div className="mt-4">
-            <SelectField
+            <ProfessionalSelect
               label="Professional"
               value={recipientId}
-              onChange={(e) => setRecipientId(e.target.value)}
+              onSelect={(id) => setRecipientId(id ?? '')}
+              professionals={professionals}
               placeholder="Open referral — match me with someone"
-              options={professionals.map((p) => ({
-                value: p.id,
-                label: [p.fullName, p.profession, p.city].filter(Boolean).join(' — '),
-              }))}
               hint="Leave this open and an administrator will route it to a suitable professional."
             />
           </div>
